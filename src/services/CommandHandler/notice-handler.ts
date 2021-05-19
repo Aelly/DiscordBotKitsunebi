@@ -1,0 +1,43 @@
+import { TYPES } from "./../../types";
+import { ICommandHandler } from "./ICommandHandler";
+import {  injectable } from "inversify";
+import StringUtils from "../../Utils/StringUtils";
+import { Message, MessageEmbed } from "discord.js";
+import container from "../../inversify.config";
+import { Bot } from "../../bot";
+
+@injectable()
+export class NoticeHandler implements ICommandHandler {
+    commandName: string = "notice";
+
+    public detectIfType(message: Message): boolean {
+        return StringUtils.getCommandName(message.content) == this.commandName;
+    }
+
+    public sendResponse(message: Message): void {
+        let bot = container.get<Bot>(TYPES.Bot);
+        
+        try{
+            const parameters = StringUtils.getCommandArgumentTitleDescription(
+                message.content
+            );
+    
+            const messageEmbed: MessageEmbed = new MessageEmbed()
+                .setTitle(parameters[0])
+                .setDescription(parameters[1])
+                .setColor(bot.embedColor);
+    
+            message.delete();
+
+            message.channel.send(messageEmbed);
+        }
+        catch(error)
+        {
+            this.sendResponseError(message);
+        }
+    }
+
+    private sendResponseError(message : Message) : void{
+        message.channel.send("Paramètre invalide : !notice Titre - Description");
+    }
+}
