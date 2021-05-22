@@ -11,12 +11,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModifiableMessage = void 0;
 class ModifiableMessage {
+    constructor() {
+        this.message = null;
+        this.roles = [];
+    }
     getCorrespondingRole(roleReaction) {
         for (let role of this.roles) {
             if (role.emoteServerValue.has(roleReaction.emoji.name)
                 || role.emoteFallbackValue == roleReaction.emoji.name)
                 return role;
         }
+    }
+    addReaction() {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Get the current server (to check which emote to use for a specific role)
+            const serverId = this.message.guild.id;
+            // Add reaction of each role
+            for (let role of this.roles) {
+                yield this.message.react(role.getEmoteForCurrentServer(serverId));
+            }
+        });
     }
     addUserToRole(userToAdd, roleReaction) {
         return __awaiter(this, void 0, void 0, function* () {

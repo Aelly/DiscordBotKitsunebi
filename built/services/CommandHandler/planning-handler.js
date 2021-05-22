@@ -15,15 +15,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EventHandler = void 0;
-const guild_event_1 = require("../../class/ModifiableMessage/guild-event");
+exports.PlanningHandler = void 0;
+const planning_1 = require("./../../class/ModifiableMessage/planning");
 const inversify_1 = require("inversify");
 const StringUtils_1 = require("../../Utils/StringUtils");
-const inversify_config_1 = require("../../inversify.config");
 const types_1 = require("../../types");
-let EventHandler = class EventHandler {
+const inversify_config_1 = require("../../inversify.config");
+let PlanningHandler = class PlanningHandler {
     constructor() {
-        this.commandName = "event";
+        this.commandName = "planning";
     }
     detectIfType(message) {
         return StringUtils_1.default.getCommandName(message.content) == this.commandName;
@@ -31,30 +31,15 @@ let EventHandler = class EventHandler {
     sendResponse(message) {
         return __awaiter(this, void 0, void 0, function* () {
             let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
-            try {
-                // Get the parameters of the command
-                const parameters = StringUtils_1.default.getCommandArgumentTitleDescription(message.content);
-                // Construct the guildEvent and send the corresponding response in the channel
-                const guildEvent = new guild_event_1.GuildEvent(parameters[0], parameters[1]);
-                guildEvent.message = yield message.channel.send(yield guildEvent.constructMessageEmbed());
-                bot.mofiableMessages.push(guildEvent);
-                // Delete the user message with the command
-                message.delete();
-                // Add reaction
-                yield guildEvent.addReaction();
-            }
-            catch (error) {
-                console.log(error);
-                this.sendResponseError(message).then();
-            }
+            const planning = new planning_1.Planning();
+            planning.message = yield message.channel.send(yield planning.constructMessageEmbed());
+            bot.mofiableMessages.push(planning);
+            yield planning.addReaction();
         });
     }
-    sendResponseError(message) {
-        return message.channel.send("Paramètre invalide: !event Titre - Description");
-    }
 };
-EventHandler = __decorate([
+PlanningHandler = __decorate([
     inversify_1.injectable()
-], EventHandler);
-exports.EventHandler = EventHandler;
-//# sourceMappingURL=event-handler.js.map
+], PlanningHandler);
+exports.PlanningHandler = PlanningHandler;
+//# sourceMappingURL=planning-handler.js.map

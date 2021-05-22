@@ -16,17 +16,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageResponder = void 0;
+const planning_handler_1 = require("./CommandHandler/planning-handler");
+const event_handler_1 = require("./CommandHandler/event-handler");
+const help_handler_1 = require("./CommandHandler/help-handler");
+const notice_handler_1 = require("./CommandHandler/notice-handler");
 const inversify_1 = require("inversify");
-const types_1 = require("../types");
-const inversify_config_1 = require("./../inversify.config");
 let MessageResponder = class MessageResponder {
     handle(message) {
         return __awaiter(this, void 0, void 0, function* () {
             // Define the handler to test
             let handler = [];
-            handler.push(inversify_config_1.default.get(types_1.TYPES.HelpHandler));
-            handler.push(inversify_config_1.default.get(types_1.TYPES.NoticeHandler));
-            handler.push(inversify_config_1.default.get(types_1.TYPES.EventHandler));
+            handler.push(new help_handler_1.HelpHandler());
+            handler.push(new notice_handler_1.NoticeHandler());
+            handler.push(new event_handler_1.EventHandler());
+            handler.push(new planning_handler_1.PlanningHandler());
             // Test the message on each handler and send the corresponding response if needed
             handler.forEach(function (handler) {
                 if (handler.detectIfType(message))

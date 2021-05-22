@@ -21,8 +21,6 @@ class GuildEvent extends modifiable_message_1.ModifiableMessage {
         super();
         this.title = title;
         this.description = description;
-        this.message = null;
-        this.roles = [];
         // Tank
         const tankRole = new role_1.Role("Tank", "🛡");
         tankRole.addServerSpecificEmote("587883211225563160", "587893528076615690");
@@ -60,21 +58,10 @@ class GuildEvent extends modifiable_message_1.ModifiableMessage {
                     const userName = yield DiscordUtils_1.default.getUserNicknameWithoutEmoji(user, this.message.guild);
                     usernames.push(userName);
                 }
-                // const usernames: string[] = role.usersRegistered.map((u) => DiscordUtils.getUserNameWithoutEmoji(u, this.message.guild));
-                const filedValue = usernames.join("\n") || "\u200b";
-                messageEmbed = messageEmbed.addField(role.roleName, filedValue, true);
+                const fieldValue = usernames.join("\n") || "\u200b";
+                messageEmbed = messageEmbed.addField(role.roleName, fieldValue, true);
             }
             return messageEmbed;
-        });
-    }
-    addReaction() {
-        return __awaiter(this, void 0, void 0, function* () {
-            // Get the current server (to check which emote to use for a specific role)
-            const serverId = this.message.guild.id;
-            // Add reaction of each role
-            for (let role of this.roles) {
-                yield this.message.react(role.getEmoteForCurrentServer(serverId));
-            }
         });
     }
 }

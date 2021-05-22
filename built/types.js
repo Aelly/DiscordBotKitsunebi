@@ -8,8 +8,5 @@ exports.TYPES = {
     Prefix: Symbol("Prefix"),
     EmbedColor: Symbol("EmbedColor"),
     MessageResponder: Symbol("MessageResponder"),
-    NoticeHandler: Symbol("NoticeHandler"),
-    HelpHandler: Symbol("HelpHandler"),
-    EventHandler: Symbol("EventHandler"),
 };
 //# sourceMappingURL=types.js.map

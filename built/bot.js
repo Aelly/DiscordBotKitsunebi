@@ -34,7 +34,7 @@ let Bot = class Bot {
         this.prefix = prefix;
         this.embedColor = embedColor;
         this.messageResponder = messageResponder;
-        this.guildEvents = [];
+        this.mofiableMessages = [];
     }
     listen() {
         // Handling of users message
@@ -53,7 +53,7 @@ let Bot = class Bot {
             if (!message.author.bot || user.bot)
                 return;
             // TODO : Meilleur façon de trouver l'event qui nous interesse
-            for (let ge of this.guildEvents) {
+            for (let ge of this.mofiableMessages) {
                 if (ge.message == message)
                     yield ge.addUserToRole(user, messageReaction);
             }
@@ -62,7 +62,7 @@ let Bot = class Bot {
             const message = messageReaction.message;
             if (!message.author.bot || user.bot)
                 return;
-            for (let ge of this.guildEvents) {
+            for (let ge of this.mofiableMessages) {
                 if (ge.message == message)
                     yield ge.removeUserToRole(user, messageReaction);
             }

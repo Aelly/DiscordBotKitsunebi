@@ -4,9 +4,6 @@ import { TYPES } from "./types";
 import { Bot } from "./bot";
 import { Client } from "discord.js";
 import { MessageResponder } from "./services/message-responder";
-import { NoticeHandler } from "./services/CommandHandler/notice-handler";
-import { HelpHandler } from "./services/CommandHandler/help-handler";
-import { EventHandler } from "./services/CommandHandler/event-handler";
 
 let container = new Container();
 
@@ -21,18 +18,6 @@ container
 container
     .bind<MessageResponder>(TYPES.MessageResponder)
     .to(MessageResponder)
-    .inSingletonScope();
-container
-    .bind<NoticeHandler>(TYPES.NoticeHandler)
-    .to(NoticeHandler)
-    .inSingletonScope();
-container
-    .bind<HelpHandler>(TYPES.HelpHandler)
-    .to(HelpHandler)
-    .inSingletonScope();
-container
-    .bind<EventHandler>(TYPES.EventHandler)
-    .to(EventHandler)
     .inSingletonScope();
 
 export default container;

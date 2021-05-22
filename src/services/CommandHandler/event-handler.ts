@@ -24,7 +24,7 @@ export class EventHandler implements CommandHandler {
             // Construct the guildEvent and send the corresponding response in the channel
             const guildEvent: GuildEvent = new GuildEvent(parameters[0], parameters[1]);
             guildEvent.message = await message.channel.send(await guildEvent.constructMessageEmbed());
-            bot.guildEvents.push(guildEvent);
+            bot.mofiableMessages.push(guildEvent);
             // Delete the user message with the command
             message.delete();
             // Add reaction

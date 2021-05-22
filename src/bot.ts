@@ -5,6 +5,7 @@ import { TYPES } from "./types";
 import { MessageResponder } from "./services/message-responder";
 
 import StringUtils from "./Utils/StringUtils";
+import { ModifiableMessage } from "./class/ModifiableMessage/modifiable-message";
 
 @injectable()
 export class Bot {
@@ -16,7 +17,7 @@ export class Bot {
     public readonly embedColor: string;
 
     // TODO Interface pour permettre de faire une gestion de tous les types de modifiable
-    public guildEvents: GuildEvent[];
+    public mofiableMessages: ModifiableMessage[];
 
     constructor(
         @inject(TYPES.Client) client: Client,
@@ -31,7 +32,7 @@ export class Bot {
         this.embedColor = embedColor;
         this.messageResponder = messageResponder;
 
-        this.guildEvents = [];
+        this.mofiableMessages = [];
     }
 
     public listen(): Promise<string> {
@@ -51,7 +52,7 @@ export class Bot {
             if (!message.author.bot || user.bot) return;
 
             // TODO : Meilleur façon de trouver l'event qui nous interesse
-            for (let ge of this.guildEvents) {
+            for (let ge of this.mofiableMessages) {
                 if (ge.message == message) await ge.addUserToRole(user, messageReaction);
             }
         });
@@ -60,7 +61,7 @@ export class Bot {
             const message: Message = messageReaction.message;
             if (!message.author.bot || user.bot) return;
 
-            for (let ge of this.guildEvents) {
+            for (let ge of this.mofiableMessages) {
                 if (ge.message == message) await ge.removeUserToRole(user, messageReaction);
             }
         });
