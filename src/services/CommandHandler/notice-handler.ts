@@ -1,5 +1,5 @@
 import { TYPES } from "./../../types";
-import { ICommandHandler } from "./ICommandHandler";
+import { CommandHandler } from "./i-command-handler";
 import {  injectable } from "inversify";
 import StringUtils from "../../Utils/StringUtils";
 import { Message, MessageEmbed } from "discord.js";
@@ -7,7 +7,7 @@ import container from "../../inversify.config";
 import { Bot } from "../../bot";
 
 @injectable()
-export class NoticeHandler implements ICommandHandler {
+export class NoticeHandler implements CommandHandler {
     commandName: string = "notice";
 
     public detectIfType(message: Message): boolean {

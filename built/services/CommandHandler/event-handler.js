@@ -16,9 +16,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventHandler = void 0;
-const guild_event_1 = require("./../../class/guild-event");
+const guild_event_1 = require("../../class/ModifiableMessage/guild-event");
 const inversify_1 = require("inversify");
-const discord_js_1 = require("discord.js");
 const StringUtils_1 = require("../../Utils/StringUtils");
 const inversify_config_1 = require("../../inversify.config");
 const types_1 = require("../../types");
@@ -35,31 +34,14 @@ let EventHandler = class EventHandler {
             try {
                 // Get the parameters of the command
                 const parameters = StringUtils_1.default.getCommandArgumentTitleDescription(message.content);
-                // Prepare the corresponding embed message
-                const messageEmbed = new discord_js_1.MessageEmbed()
-                    .setTitle(parameters[0])
-                    .setDescription(parameters[1])
-                    .addField("Dps", "\u200b", true)
-                    .addField("Heal", "\u200b", true)
-                    .addField("Tank", "\u200b", true)
-                    .addField("Si besoin", "\u200b", true)
-                    .setColor(bot.embedColor);
+                // Construct the guildEvent and send the corresponding response in the channel
+                const guildEvent = new guild_event_1.GuildEvent(parameters[0], parameters[1]);
+                guildEvent.message = yield message.channel.send(yield guildEvent.constructMessageEmbed());
+                bot.guildEvents.push(guildEvent);
                 // Delete the user message with the command
                 message.delete();
-                // Send the prepared message and wait
-                const botMessage = yield message.channel.send(messageEmbed);
-                // Constrct the object that will allow us to track the message
-                const guildEvent = new guild_event_1.GuildEvent(botMessage);
-                bot.guildEvents.push(guildEvent);
-                const serverId = botMessage.guild.id;
-                // React to the message
-                guildEvent.roles.forEach(function (role) {
-                    return __awaiter(this, void 0, void 0, function* () {
-                        yield botMessage
-                            .react(role.getEmoteForCurrentServer(serverId))
-                            .catch((err) => console.log(err));
-                    });
-                });
+                // Add reaction
+                yield guildEvent.addReaction();
             }
             catch (error) {
                 console.log(error);

@@ -1,4 +1,4 @@
-import { GuildEvent } from "./class/guild-event";
+import { GuildEvent } from "./class/ModifiableMessage/guild-event";
 import { Client, Message, MessageReaction, User } from "discord.js";
 import { inject, injectable } from "inversify";
 import { TYPES } from "./types";
@@ -15,6 +15,7 @@ export class Bot {
     public readonly prefix: string;
     public readonly embedColor: string;
 
+    // TODO Interface pour permettre de faire une gestion de tous les types de modifiable
     public guildEvents: GuildEvent[];
 
     constructor(
@@ -35,7 +36,7 @@ export class Bot {
 
     public listen(): Promise<string> {
         // Handling of users message
-        this.client.on("message", (message: Message) => {
+        this.client.on("message", async (message: Message) => {
             // We only look message from user starting with this bot prefix
             if (message.author.bot || !StringUtils.isBotCommand(message.content)) return;
             // Handling by the MessageResponder and the CommandHandler
@@ -43,16 +44,25 @@ export class Bot {
         });
 
         // Handling of messageReactionAdd
-        this.client.on("messageReactionAdd", (messageReaction: MessageReaction, user: User) => {
-            // We only look for user's reaction on bot's message 
+        //  TODO : Handler à part ?
+        this.client.on("messageReactionAdd", async (messageReaction: MessageReaction, user: User) => {
+            // We only look for user's reaction on bot's message
             const message: Message = messageReaction.message;
             if (!message.author.bot || user.bot) return;
 
-            this.guildEvents.forEach(function (ge: GuildEvent) {
-                if (ge.message == message) {
-                    console.log("Message founded");
-                }
-            });
+            // TODO : Meilleur façon de trouver l'event qui nous interesse
+            for (let ge of this.guildEvents) {
+                if (ge.message == message) await ge.addUserToRole(user, messageReaction);
+            }
+        });
+
+        this.client.on("messageReactionRemove", async (messageReaction: MessageReaction, user: User) => {
+            const message: Message = messageReaction.message;
+            if (!message.author.bot || user.bot) return;
+
+            for (let ge of this.guildEvents) {
+                if (ge.message == message) await ge.removeUserToRole(user, messageReaction);
+            }
         });
 
         return this.client.login(this.token);

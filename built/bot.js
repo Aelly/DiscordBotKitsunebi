@@ -11,6 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Bot = void 0;
 const discord_js_1 = require("discord.js");
@@ -29,25 +38,35 @@ let Bot = class Bot {
     }
     listen() {
         // Handling of users message
-        this.client.on("message", (message) => {
+        this.client.on("message", (message) => __awaiter(this, void 0, void 0, function* () {
             // We only look message from user starting with this bot prefix
             if (message.author.bot || !StringUtils_1.default.isBotCommand(message.content))
                 return;
             // Handling by the MessageResponder and the CommandHandler
             this.messageResponder.handle(message);
-        });
+        }));
         // Handling of messageReactionAdd
-        this.client.on("messageReactionAdd", (messageReaction, user) => {
-            // We only look for user's reaction on bot's message 
+        //  TODO : Handler à part ?
+        this.client.on("messageReactionAdd", (messageReaction, user) => __awaiter(this, void 0, void 0, function* () {
+            // We only look for user's reaction on bot's message
             const message = messageReaction.message;
             if (!message.author.bot || user.bot)
                 return;
-            this.guildEvents.forEach(function (ge) {
-                if (ge.message == message) {
-                    console.log("Message founded");
-                }
-            });
-        });
+            // TODO : Meilleur façon de trouver l'event qui nous interesse
+            for (let ge of this.guildEvents) {
+                if (ge.message == message)
+                    yield ge.addUserToRole(user, messageReaction);
+            }
+        }));
+        this.client.on("messageReactionRemove", (messageReaction, user) => __awaiter(this, void 0, void 0, function* () {
+            const message = messageReaction.message;
+            if (!message.author.bot || user.bot)
+                return;
+            for (let ge of this.guildEvents) {
+                if (ge.message == message)
+                    yield ge.removeUserToRole(user, messageReaction);
+            }
+        }));
         return this.client.login(this.token);
     }
 };

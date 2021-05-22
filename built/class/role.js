@@ -6,6 +6,7 @@ class Role {
         this.roleName = roleName;
         this.emoteServerValue = new Map();
         this.emoteFallbackValue = emoteFallbackValue;
+        this.usersRegistered = [];
     }
     addServerSpecificEmote(serverId, emoteValue) {
         this.emoteServerValue.set(serverId, emoteValue);
@@ -15,6 +16,14 @@ class Role {
             return this.emoteServerValue.get(serverId);
         else
             return this.emoteFallbackValue;
+    }
+    addUser(userToAdd) {
+        this.usersRegistered.push(userToAdd);
+    }
+    removeUser(userToRemove) {
+        const index = this.usersRegistered.indexOf(userToRemove, 0);
+        if (index > -1)
+            this.usersRegistered.splice(index, 1);
     }
 }
 exports.Role = Role;

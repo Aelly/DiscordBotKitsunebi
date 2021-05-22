@@ -1,15 +1,14 @@
-import { GuildEvent } from "./../../class/guild-event";
-import { ICommandHandler } from "./ICommandHandler";
+import { GuildEvent } from "../../class/ModifiableMessage/guild-event";
+import { CommandHandler } from "./i-command-handler";
 import { injectable } from "inversify";
-import { Message, MessageEmbed } from "discord.js";
+import { Message } from "discord.js";
 import StringUtils from "../../Utils/StringUtils";
 import container from "../../inversify.config";
 import { Bot } from "../../bot";
 import { TYPES } from "../../types";
-import { Role } from "../../class/role";
 
 @injectable()
-export class EventHandler implements ICommandHandler {
+export class EventHandler implements CommandHandler {
     commandName: string = "event";
 
     public detectIfType(message: Message): boolean {
@@ -22,31 +21,14 @@ export class EventHandler implements ICommandHandler {
         try {
             // Get the parameters of the command
             const parameters = StringUtils.getCommandArgumentTitleDescription(message.content);
-            // Prepare the corresponding embed message
-            const messageEmbed: MessageEmbed = new MessageEmbed()
-                .setTitle(parameters[0])
-                .setDescription(parameters[1])
-                .addField("Dps", "\u200b", true)
-                .addField("Heal", "\u200b", true)
-                .addField("Tank", "\u200b", true)
-                .addField("Si besoin", "\u200b", true)
-                .setColor(bot.embedColor);
+            // Construct the guildEvent and send the corresponding response in the channel
+            const guildEvent: GuildEvent = new GuildEvent(parameters[0], parameters[1]);
+            guildEvent.message = await message.channel.send(await guildEvent.constructMessageEmbed());
+            bot.guildEvents.push(guildEvent);
             // Delete the user message with the command
             message.delete();
-            // Send the prepared message and wait
-            const botMessage: Message = await message.channel.send(messageEmbed);
-            // Constrct the object that will allow us to track the message
-            const guildEvent: GuildEvent = new GuildEvent(botMessage);
-            bot.guildEvents.push(guildEvent);
-
-            const serverId = botMessage.guild.id;
-
-            // React to the message
-            guildEvent.roles.forEach(async function (role: Role) {
-                await botMessage
-                    .react(role.getEmoteForCurrentServer(serverId))
-                    .catch((err) => console.log(err));
-            });
+            // Add reaction
+            await guildEvent.addReaction();
         } catch (error) {
             console.log(error);
             this.sendResponseError(message).then();

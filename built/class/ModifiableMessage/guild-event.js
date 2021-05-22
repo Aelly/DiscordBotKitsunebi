@@ -10,12 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GuildEvent = void 0;
-const role_1 = require("./role");
+const role_1 = require("../role");
 const discord_js_1 = require("discord.js");
-const inversify_config_1 = require("../inversify.config");
-const types_1 = require("../types");
-class GuildEvent {
+const inversify_config_1 = require("../../inversify.config");
+const types_1 = require("../../types");
+const modifiable_message_1 = require("./modifiable-message");
+const DiscordUtils_1 = require("../../Utils/DiscordUtils");
+class GuildEvent extends modifiable_message_1.ModifiableMessage {
     constructor(title, description) {
+        super();
         this.title = title;
         this.description = description;
         this.message = null;
@@ -37,18 +40,32 @@ class GuildEvent {
         this.roles.push(ifNeededRole);
     }
     constructMessageEmbed() {
-        let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
-        // Prepare the corresponding embed message
-        let messageEmbed = new discord_js_1.MessageEmbed()
-            .setTitle(this.title)
-            .setDescription(this.description)
-            .setColor(bot.embedColor);
-        for (let role of this.roles) {
-            const usernames = role.usersRegistered.map((u) => u.username);
-            const filedValue = usernames.join("\n") || "\u200b";
-            messageEmbed = messageEmbed.addField(role.roleName, filedValue, true);
-        }
-        return messageEmbed;
+        return __awaiter(this, void 0, void 0, function* () {
+            let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
+            // TODO: Better way ? (typescript LINQ equivalent)
+            // Get the total of all participant in the event
+            let combinedUsers = [];
+            for (let role of this.roles) {
+                combinedUsers = combinedUsers.concat(role.usersRegistered);
+            }
+            let nbOfParcicipant = combinedUsers.filter((n, i) => combinedUsers.indexOf(n) === i).length;
+            // Prepare the corresponding embed message
+            let messageEmbed = new discord_js_1.MessageEmbed()
+                .setTitle(this.title + "(" + nbOfParcicipant + ")")
+                .setDescription(this.description)
+                .setColor(bot.embedColor);
+            for (let role of this.roles) {
+                const usernames = [];
+                for (let user of role.usersRegistered) {
+                    const userName = yield DiscordUtils_1.default.getUserNicknameWithoutEmoji(user, this.message.guild);
+                    usernames.push(userName);
+                }
+                // const usernames: string[] = role.usersRegistered.map((u) => DiscordUtils.getUserNameWithoutEmoji(u, this.message.guild));
+                const filedValue = usernames.join("\n") || "\u200b";
+                messageEmbed = messageEmbed.addField(role.roleName, filedValue, true);
+            }
+            return messageEmbed;
+        });
     }
     addReaction() {
         return __awaiter(this, void 0, void 0, function* () {
