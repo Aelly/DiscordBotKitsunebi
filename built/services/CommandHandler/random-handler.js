@@ -9,20 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-class DiscordUtils {
-    static getUserNicknameWithoutEmoji(user, guild) {
-        var _a;
+exports.RandomHandler = void 0;
+const StringUtils_1 = require("../../Utils/StringUtils");
+class RandomHandler {
+    constructor() {
+        this.commandName = "rand";
+    }
+    detectIfType(message) {
+        return StringUtils_1.default.getCommandName(message.content) == this.commandName;
+    }
+    sendResponse(message) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (guild.available) {
-                const guildMember = yield guild.members.fetch(user.id);
-                const nameToUse = (_a = guildMember.nickname) !== null && _a !== void 0 ? _a : user.username;
-                return nameToUse.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, "");
-            }
-            else {
-                return user.username;
-            }
+            const rdnInt = Math.floor(Math.random() * 100) + 1;
+            yield message.reply(rdnInt);
         });
     }
 }
-exports.default = DiscordUtils;
-//# sourceMappingURL=DiscordUtils.js.map
+exports.RandomHandler = RandomHandler;
+//# sourceMappingURL=random-handler.js.map

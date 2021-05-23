@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [ ] Clear
+- [x] Clear
 - [x] Notice
 - [x] Planning
 - [x] Event (nombre d'inscrit dans le titre)

@@ -1,3 +1,4 @@
+import { RandomHandler } from './CommandHandler/random-handler';
 import { ClearHandler } from "./CommandHandler/clear-handler";
 import { PlanningHandler } from "./CommandHandler/planning-handler";
 import { EventHandler } from "./CommandHandler/event-handler";
@@ -17,6 +18,7 @@ export class MessageResponder {
         handler.push(new EventHandler());
         handler.push(new PlanningHandler());
         handler.push(new ClearHandler());
+        handler.push(new RandomHandler());
 
         // Test the message on each handler and send the corresponding response if needed
         handler.forEach(function (handler: CommandHandler) {

@@ -40,7 +40,6 @@ class GuildEvent extends modifiable_message_1.ModifiableMessage {
     constructMessageEmbed() {
         return __awaiter(this, void 0, void 0, function* () {
             let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
-            // TODO: Better way ? (typescript LINQ equivalent)
             // Get the total of all participant in the event
             let combinedUsers = [];
             for (let role of this.roles) {

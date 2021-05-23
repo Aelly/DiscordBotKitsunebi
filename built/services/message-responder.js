@@ -16,6 +16,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageResponder = void 0;
+const random_handler_1 = require("./CommandHandler/random-handler");
 const clear_handler_1 = require("./CommandHandler/clear-handler");
 const planning_handler_1 = require("./CommandHandler/planning-handler");
 const event_handler_1 = require("./CommandHandler/event-handler");
@@ -32,6 +33,7 @@ let MessageResponder = class MessageResponder {
             handler.push(new event_handler_1.EventHandler());
             handler.push(new planning_handler_1.PlanningHandler());
             handler.push(new clear_handler_1.ClearHandler());
+            handler.push(new random_handler_1.RandomHandler());
             // Test the message on each handler and send the corresponding response if needed
             handler.forEach(function (handler) {
                 if (handler.detectIfType(message)) {

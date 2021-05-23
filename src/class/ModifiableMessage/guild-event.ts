@@ -35,7 +35,6 @@ export class GuildEvent extends ModifiableMessage {
     public async constructMessageEmbed(): Promise<MessageEmbed> {
         let bot = container.get<Bot>(TYPES.Bot);
 
-        // TODO: Better way ? (typescript LINQ equivalent)
         // Get the total of all participant in the event
         let combinedUsers: User[] = [];
         for (let role of this.roles) {
