@@ -16,8 +16,7 @@ export class Bot {
     public readonly prefix: string;
     public readonly embedColor: string;
 
-    // TODO Interface pour permettre de faire une gestion de tous les types de modifiable
-    public mofiableMessages: ModifiableMessage[];
+    public modifiableMessages: ModifiableMessage[];
 
     constructor(
         @inject(TYPES.Client) client: Client,
@@ -32,7 +31,7 @@ export class Bot {
         this.embedColor = embedColor;
         this.messageResponder = messageResponder;
 
-        this.mofiableMessages = [];
+        this.modifiableMessages = [];
     }
 
     public listen(): Promise<string> {
@@ -45,24 +44,41 @@ export class Bot {
         });
 
         // Handling of messageReactionAdd
-        //  TODO : Handler à part ?
         this.client.on("messageReactionAdd", async (messageReaction: MessageReaction, user: User) => {
             // We only look for user's reaction on bot's message
             const message: Message = messageReaction.message;
             if (!message.author.bot || user.bot) return;
-
-            // TODO : Meilleur façon de trouver l'event qui nous interesse
-            for (let ge of this.mofiableMessages) {
+            // Detect which message the reaction was add to and let the specific type handle it
+            for (let ge of this.modifiableMessages) {
                 if (ge.message == message) await ge.addUserToRole(user, messageReaction);
             }
         });
 
+        // Handling of messageReactionRemove
         this.client.on("messageReactionRemove", async (messageReaction: MessageReaction, user: User) => {
             const message: Message = messageReaction.message;
             if (!message.author.bot || user.bot) return;
 
-            for (let ge of this.mofiableMessages) {
+            for (let ge of this.modifiableMessages) {
                 if (ge.message == message) await ge.removeUserToRole(user, messageReaction);
+            }
+        });
+
+        // Handling of message deleted
+        this.client.on("messageDelete", async (deletedMessage: Message) => {
+            if (deletedMessage.author.bot) {
+                console.log(this.modifiableMessages.length);
+
+                for (let modifiableMessage of this.modifiableMessages) {
+                    if (modifiableMessage.message == deletedMessage) {
+                        const index = this.modifiableMessages.indexOf(modifiableMessage, 0);
+                        if (index > -1) {
+                            this.modifiableMessages.splice(index, 1);
+                        }
+                    }
+                }
+
+                console.log(this.modifiableMessages.length);
             }
         });
 

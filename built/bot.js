@@ -34,7 +34,7 @@ let Bot = class Bot {
         this.prefix = prefix;
         this.embedColor = embedColor;
         this.messageResponder = messageResponder;
-        this.mofiableMessages = [];
+        this.modifiableMessages = [];
     }
     listen() {
         // Handling of users message
@@ -46,25 +46,40 @@ let Bot = class Bot {
             this.messageResponder.handle(message);
         }));
         // Handling of messageReactionAdd
-        //  TODO : Handler à part ?
         this.client.on("messageReactionAdd", (messageReaction, user) => __awaiter(this, void 0, void 0, function* () {
             // We only look for user's reaction on bot's message
             const message = messageReaction.message;
             if (!message.author.bot || user.bot)
                 return;
-            // TODO : Meilleur façon de trouver l'event qui nous interesse
-            for (let ge of this.mofiableMessages) {
+            // Detect which message the reaction was add to and let the specific type handle it
+            for (let ge of this.modifiableMessages) {
                 if (ge.message == message)
                     yield ge.addUserToRole(user, messageReaction);
             }
         }));
+        // Handling of messageReactionRemove
         this.client.on("messageReactionRemove", (messageReaction, user) => __awaiter(this, void 0, void 0, function* () {
             const message = messageReaction.message;
             if (!message.author.bot || user.bot)
                 return;
-            for (let ge of this.mofiableMessages) {
+            for (let ge of this.modifiableMessages) {
                 if (ge.message == message)
                     yield ge.removeUserToRole(user, messageReaction);
+            }
+        }));
+        // Handling of message deleted
+        this.client.on("messageDelete", (deletedMessage) => __awaiter(this, void 0, void 0, function* () {
+            if (deletedMessage.author.bot) {
+                console.log(this.modifiableMessages.length);
+                for (let modifiableMessage of this.modifiableMessages) {
+                    if (modifiableMessage.message == deletedMessage) {
+                        const index = this.modifiableMessages.indexOf(modifiableMessage, 0);
+                        if (index > -1) {
+                            this.modifiableMessages.splice(index, 1);
+                        }
+                    }
+                }
+                console.log(this.modifiableMessages.length);
             }
         }));
         return this.client.login(this.token);

@@ -33,7 +33,7 @@ let PlanningHandler = class PlanningHandler {
             let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
             const planning = new planning_1.Planning();
             planning.message = yield message.channel.send(yield planning.constructMessageEmbed());
-            bot.mofiableMessages.push(planning);
+            bot.modifiableMessages.push(planning);
             yield planning.addReaction();
         });
     }

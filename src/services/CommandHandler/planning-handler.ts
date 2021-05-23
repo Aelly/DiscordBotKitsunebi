@@ -19,7 +19,7 @@ export class PlanningHandler implements CommandHandler{
 
         const planning : Planning = new Planning();
         planning.message = await message.channel.send(await planning.constructMessageEmbed());
-        bot.mofiableMessages.push(planning);
+        bot.modifiableMessages.push(planning);
         await planning.addReaction();
     }
 

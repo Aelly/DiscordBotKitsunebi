@@ -37,9 +37,7 @@ let EventHandler = class EventHandler {
                 // Construct the guildEvent and send the corresponding response in the channel
                 const guildEvent = new guild_event_1.GuildEvent(parameters[0], parameters[1]);
                 guildEvent.message = yield message.channel.send(yield guildEvent.constructMessageEmbed());
-                bot.mofiableMessages.push(guildEvent);
-                // Delete the user message with the command
-                message.delete();
+                bot.modifiableMessages.push(guildEvent);
                 // Add reaction
                 yield guildEvent.addReaction();
             }

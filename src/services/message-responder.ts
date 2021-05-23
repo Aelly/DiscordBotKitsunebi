@@ -1,5 +1,5 @@
-import { PlanningHandler } from './CommandHandler/planning-handler';
-import { EventHandler } from './CommandHandler/event-handler';
+import { PlanningHandler } from "./CommandHandler/planning-handler";
+import { EventHandler } from "./CommandHandler/event-handler";
 import { CommandHandler } from "./CommandHandler/i-command-handler";
 import { HelpHandler } from "./CommandHandler/help-handler";
 import { NoticeHandler } from "./CommandHandler/notice-handler";
@@ -18,8 +18,11 @@ export class MessageResponder {
 
         // Test the message on each handler and send the corresponding response if needed
         handler.forEach(function (handler: CommandHandler) {
-            if (handler.detectIfType(message))
+            if (handler.detectIfType(message)) {
                 handler.sendResponse(message);
+                // Delete the user message with the command
+                message.delete();
+            }
         });
     }
 }

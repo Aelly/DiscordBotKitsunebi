@@ -32,8 +32,11 @@ let MessageResponder = class MessageResponder {
             handler.push(new planning_handler_1.PlanningHandler());
             // Test the message on each handler and send the corresponding response if needed
             handler.forEach(function (handler) {
-                if (handler.detectIfType(message))
+                if (handler.detectIfType(message)) {
                     handler.sendResponse(message);
+                    // Delete the user message with the command
+                    message.delete();
+                }
             });
         });
     }
