@@ -16,6 +16,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageResponder = void 0;
+const clear_handler_1 = require("./CommandHandler/clear-handler");
 const planning_handler_1 = require("./CommandHandler/planning-handler");
 const event_handler_1 = require("./CommandHandler/event-handler");
 const help_handler_1 = require("./CommandHandler/help-handler");
@@ -30,12 +31,18 @@ let MessageResponder = class MessageResponder {
             handler.push(new notice_handler_1.NoticeHandler());
             handler.push(new event_handler_1.EventHandler());
             handler.push(new planning_handler_1.PlanningHandler());
+            handler.push(new clear_handler_1.ClearHandler());
             // Test the message on each handler and send the corresponding response if needed
             handler.forEach(function (handler) {
                 if (handler.detectIfType(message)) {
                     handler.sendResponse(message);
                     // Delete the user message with the command
-                    message.delete();
+                    try {
+                        message.delete();
+                    }
+                    catch (err) {
+                        console.log(err);
+                    }
                 }
             });
         });

@@ -3,7 +3,6 @@ import { Message } from "discord.js";
 import { injectable } from "inversify";
 import StringUtils from "../../Utils/StringUtils";
 
-@injectable()
 export class HelpHandler implements CommandHandler {
     commandName: string = "help";
 
@@ -13,8 +12,8 @@ export class HelpHandler implements CommandHandler {
 
     public sendResponse(message: Message): void {
         let response: string = "\n";
-        response += "- !notice Titre - Description\n";
-        response += "- !event Titre - Description\n";
+        response += "- !notice [Titre] - [Description]\n";
+        response += "- !event [Titre] - [Description]\n";
         response += "- !planning\n";
 
         message.reply(response);

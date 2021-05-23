@@ -6,7 +6,6 @@ import { Message, MessageEmbed } from "discord.js";
 import container from "../../inversify.config";
 import { Bot } from "../../bot";
 
-@injectable()
 export class NoticeHandler implements CommandHandler {
     commandName: string = "notice";
 
@@ -27,8 +26,6 @@ export class NoticeHandler implements CommandHandler {
                 .setDescription(parameters[1])
                 .setColor(bot.embedColor);
     
-            message.delete();
-
             message.channel.send(messageEmbed);
         }
         catch(error)

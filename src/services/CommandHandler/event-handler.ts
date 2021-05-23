@@ -7,7 +7,6 @@ import container from "../../inversify.config";
 import { Bot } from "../../bot";
 import { TYPES } from "../../types";
 
-@injectable()
 export class EventHandler implements CommandHandler {
     commandName: string = "event";
 

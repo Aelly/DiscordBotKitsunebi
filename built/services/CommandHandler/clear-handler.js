@@ -9,27 +9,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PlanningHandler = void 0;
-const planning_1 = require("./../../class/ModifiableMessage/planning");
+exports.ClearHandler = void 0;
 const StringUtils_1 = require("../../Utils/StringUtils");
-const types_1 = require("../../types");
-const inversify_config_1 = require("../../inversify.config");
-class PlanningHandler {
+class ClearHandler {
     constructor() {
-        this.commandName = "planning";
+        this.commandName = "clear";
     }
     detectIfType(message) {
         return StringUtils_1.default.getCommandName(message.content) == this.commandName;
     }
     sendResponse(message) {
         return __awaiter(this, void 0, void 0, function* () {
-            let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
-            const planning = new planning_1.Planning();
-            planning.message = yield message.channel.send(yield planning.constructMessageEmbed());
-            bot.modifiableMessages.push(planning);
-            yield planning.addReaction();
+            const arg = StringUtils_1.default.getCommandUniqueArgument(message.content);
+            const amount = parseInt(arg);
+            if (isNaN(amount)) {
+                yield message.reply("Paramètre invalide");
+            }
+            else if (amount <= 1 || amount >= 100) {
+                yield message.reply("Le paramètre doit être en 1 et 99");
+            }
+            else {
+                message.channel.bulkDelete(amount, true).catch(err => {
+                    console.error(err);
+                    message.channel.send('Erreur lors de la suppression des messages !');
+                });
+            }
         });
     }
 }
-exports.PlanningHandler = PlanningHandler;
-//# sourceMappingURL=planning-handler.js.map
+exports.ClearHandler = ClearHandler;
+//# sourceMappingURL=clear-handler.js.map

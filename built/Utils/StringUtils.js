@@ -9,11 +9,7 @@ class StringUtils {
     }
     static getCommandName(message) {
         let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
-        return message
-            .slice(bot.prefix.length)
-            .split(/ +/)
-            .shift()
-            .toLowerCase();
+        return message.slice(bot.prefix.length).split(/ +/).shift().toLowerCase();
     }
     static getCommandArgumentTitleDescription(message) {
         let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
@@ -24,11 +20,19 @@ class StringUtils {
             .slice(bot.prefix.length + commandName.length + 1)
             .split(StringUtils.TITLE_DESCRIPTION_SEPARATOR);
         if (part.length != 2)
-            throw new Error('Paramètre invalide');
+            throw new Error("Paramètre invalide");
         // Récupère les deux parties de l'event
         const title = part[0];
         const description = part[1];
         return [title, description];
+    }
+    static getCommandUniqueArgument(message) {
+        let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
+        // Remove the part we already know (prefix + command)
+        //  and split to get the two part of the parameter
+        const commandName = this.getCommandName(message);
+        const arg = message.slice(bot.prefix.length + commandName.length + 1);
+        return arg;
     }
 }
 exports.default = StringUtils;
