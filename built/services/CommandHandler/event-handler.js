@@ -36,7 +36,7 @@ class EventHandler {
             }
             catch (error) {
                 console.log(error);
-                this.sendResponseError(message).then();
+                yield this.sendResponseError(message).then();
             }
         });
     }

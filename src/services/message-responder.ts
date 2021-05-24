@@ -1,4 +1,4 @@
-import { RandomHandler } from './CommandHandler/random-handler';
+import { RandomHandler } from "./CommandHandler/random-handler";
 import { ClearHandler } from "./CommandHandler/clear-handler";
 import { PlanningHandler } from "./CommandHandler/planning-handler";
 import { EventHandler } from "./CommandHandler/event-handler";
@@ -10,27 +10,32 @@ import { injectable } from "inversify";
 
 @injectable()
 export class MessageResponder {
-    async handle(message: Message): Promise<void> {
-        // Define the handler to test
-        let handler: CommandHandler[] = [];
-        handler.push(new HelpHandler());
-        handler.push(new NoticeHandler());
-        handler.push(new EventHandler());
-        handler.push(new PlanningHandler());
-        handler.push(new ClearHandler());
-        handler.push(new RandomHandler());
+    private handlers: CommandHandler[] = [];
 
+    constructor() {
+        // Define the handler to test
+        this.handlers.push(new HelpHandler());
+        this.handlers.push(new NoticeHandler());
+        this.handlers.push(new EventHandler());
+        this.handlers.push(new PlanningHandler());
+        this.handlers.push(new ClearHandler());
+        this.handlers.push(new RandomHandler());
+    }
+
+    async handle(message: Message): Promise<void> {
         // Test the message on each handler and send the corresponding response if needed
-        handler.forEach(function (handler: CommandHandler) {
+        for (let handler of this.handlers) {
             if (handler.detectIfType(message)) {
                 handler.sendResponse(message);
                 // Delete the user message with the command
                 try {
-                    message.delete();
+                    await message.delete();
+                    await message.delete();
                 } catch (err) {
-                    console.log(err);
+                } finally {
+                    break;
                 }
             }
-        });
+        }
     }
 }

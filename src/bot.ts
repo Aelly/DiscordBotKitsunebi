@@ -1,4 +1,3 @@
-import { GuildEvent } from "./class/ModifiableMessage/guild-event";
 import { Client, Message, MessageReaction, User } from "discord.js";
 import { inject, injectable } from "inversify";
 import { TYPES } from "./types";
@@ -67,7 +66,6 @@ export class Bot {
         // Handling of message deleted
         this.client.on("messageDelete", async (deletedMessage: Message) => {
             if (deletedMessage.author.bot) {
-                console.log(this.modifiableMessages.length);
 
                 for (let modifiableMessage of this.modifiableMessages) {
                     if (modifiableMessage.message == deletedMessage) {
@@ -77,8 +75,6 @@ export class Bot {
                         }
                     }
                 }
-
-                console.log(this.modifiableMessages.length);
             }
         });
 

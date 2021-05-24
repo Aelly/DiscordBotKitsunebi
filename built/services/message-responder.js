@@ -5,6 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -24,34 +27,40 @@ const help_handler_1 = require("./CommandHandler/help-handler");
 const notice_handler_1 = require("./CommandHandler/notice-handler");
 const inversify_1 = require("inversify");
 let MessageResponder = class MessageResponder {
+    constructor() {
+        this.handlers = [];
+        // Define the handler to test
+        this.handlers.push(new help_handler_1.HelpHandler());
+        this.handlers.push(new notice_handler_1.NoticeHandler());
+        this.handlers.push(new event_handler_1.EventHandler());
+        this.handlers.push(new planning_handler_1.PlanningHandler());
+        this.handlers.push(new clear_handler_1.ClearHandler());
+        this.handlers.push(new random_handler_1.RandomHandler());
+    }
     handle(message) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Define the handler to test
-            let handler = [];
-            handler.push(new help_handler_1.HelpHandler());
-            handler.push(new notice_handler_1.NoticeHandler());
-            handler.push(new event_handler_1.EventHandler());
-            handler.push(new planning_handler_1.PlanningHandler());
-            handler.push(new clear_handler_1.ClearHandler());
-            handler.push(new random_handler_1.RandomHandler());
             // Test the message on each handler and send the corresponding response if needed
-            handler.forEach(function (handler) {
+            for (let handler of this.handlers) {
                 if (handler.detectIfType(message)) {
                     handler.sendResponse(message);
                     // Delete the user message with the command
                     try {
-                        message.delete();
+                        yield message.delete();
+                        yield message.delete();
                     }
                     catch (err) {
-                        console.log(err);
+                    }
+                    finally {
+                        break;
                     }
                 }
-            });
+            }
         });
     }
 };
 MessageResponder = __decorate([
-    inversify_1.injectable()
+    inversify_1.injectable(),
+    __metadata("design:paramtypes", [])
 ], MessageResponder);
 exports.MessageResponder = MessageResponder;
 //# sourceMappingURL=message-responder.js.map

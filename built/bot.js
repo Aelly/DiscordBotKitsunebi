@@ -70,7 +70,6 @@ let Bot = class Bot {
         // Handling of message deleted
         this.client.on("messageDelete", (deletedMessage) => __awaiter(this, void 0, void 0, function* () {
             if (deletedMessage.author.bot) {
-                console.log(this.modifiableMessages.length);
                 for (let modifiableMessage of this.modifiableMessages) {
                     if (modifiableMessage.message == deletedMessage) {
                         const index = this.modifiableMessages.indexOf(modifiableMessage, 0);
@@ -79,7 +78,6 @@ let Bot = class Bot {
                         }
                     }
                 }
-                console.log(this.modifiableMessages.length);
             }
         }));
         return this.client.login(this.token);

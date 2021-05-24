@@ -28,7 +28,7 @@ export class EventHandler implements CommandHandler {
             await guildEvent.addReaction();
         } catch (error) {
             console.log(error);
-            this.sendResponseError(message).then();
+            await this.sendResponseError(message).then();
         }
     }
 
