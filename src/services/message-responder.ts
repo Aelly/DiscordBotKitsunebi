@@ -30,7 +30,6 @@ export class MessageResponder {
                 // Delete the user message with the command
                 try {
                     await message.delete();
-                    await message.delete();
                 } catch (err) {
                 } finally {
                     break;

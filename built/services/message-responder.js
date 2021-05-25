@@ -46,7 +46,6 @@ let MessageResponder = class MessageResponder {
                     // Delete the user message with the command
                     try {
                         yield message.delete();
-                        yield message.delete();
                     }
                     catch (err) {
                     }

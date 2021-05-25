@@ -6,7 +6,7 @@ export abstract class ModifiableMessage {
 
     public roles: Role[];
 
-    constructor(){
+    constructor() {
         this.message = null;
         this.roles = [];
     }
@@ -15,9 +15,17 @@ export abstract class ModifiableMessage {
 
     public getCorrespondingRole(roleReaction: MessageReaction): Role {
         for (let role of this.roles) {
-            if(role.emoteServerValue.has(roleReaction.emoji.name)
-            || role.emoteFallbackValue == roleReaction.emoji.name)
-            return role;
+            // Check if the value is the default
+            if (role.emoteFallbackValue == roleReaction.emoji.name) {
+                return role;
+            }
+            // Check if we have the value in our server specific emoji
+            else if (
+                role.emoteServerValue.has(roleReaction.message.guild.id) &&
+                role.emoteServerValue.get(roleReaction.message.guild.id) == roleReaction.emoji.id
+            ) {
+                return role;
+            }
         }
     }
 
