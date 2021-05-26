@@ -8,7 +8,7 @@
 - [x] Event (nombre d'inscrit dans le titre)
 - [x] Remove emoji from name when subscribing to event
 - [ ] Easter eggs
-- [ ] random roll (0 - 100)
+- [x] random roll (0 - 100)
 - [x] Delete message when sending response
 - [x] Delete instance in memory when message is deleted on the discord server
 
@@ -23,6 +23,7 @@
 - InversifyJS
 - Mocha, Chai, ts-mockito
 - Comment lancer directement la compilation puis l'éxécution en test (npm run watch / npm start)
+- ORM Prisma
 
 - [Test unitaire et test d'intégration](https://www.toptal.com/typescript/dependency-injection-discord-bot-tutorial)
   

@@ -66,7 +66,6 @@ export class Bot {
         // Handling of message deleted
         this.client.on("messageDelete", async (deletedMessage: Message) => {
             if (deletedMessage.author.bot) {
-
                 for (let modifiableMessage of this.modifiableMessages) {
                     if (modifiableMessage.message == deletedMessage) {
                         const index = this.modifiableMessages.indexOf(modifiableMessage, 0);
