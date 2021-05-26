@@ -34,7 +34,7 @@ Display an embed message with a title, a description and field representing the 
 !event [Title] - [Description]
 ```
 
-![Demo of the event command](docs/Event.png)
+![Demo of the event command](https://raw.githubusercontent.com/Aelly/DiscordBotKitsunebi/master/docs/Event.PNG?token=AFKPYZHXGQTQM3VN3VCYCC3AV23B6)
 
 ### Planning
 
@@ -44,7 +44,7 @@ Display an embed message with reaction allowing your Discord member to indicate 
 !planning
 ```
 
-![Demo of the event command](docs/planning.png)
+![Demo of the event command](https://raw.githubusercontent.com/Aelly/DiscordBotKitsunebi/master/docs/planning.PNG?token=AFKPYZB7MA3T4WBES2GCNA3AV23E2)
 
 ### Notice
 
@@ -54,7 +54,7 @@ Create simple but beautiful embed message easily.
 !notice [Title] - [Description]
 ```
 
-![Demo of the event command](docs/notice.png)
+![Demo of the event command](https://raw.githubusercontent.com/Aelly/DiscordBotKitsunebi/master/docs/notice.PNG?token=AFKPYZF6HFVPKQ5GQRWC24TAV23FU)
 
 ### Misc
 
