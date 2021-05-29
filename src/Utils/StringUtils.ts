@@ -34,7 +34,6 @@ export default class StringUtils {
     public static getCommandUniqueArgument(message: string): string {
         let bot = container.get<Bot>(TYPES.Bot);
         // Remove the part we already know (prefix + command)
-        //  and split to get the two part of the parameter
         const commandName = this.getCommandName(message);
         const arg = message.slice(bot.prefix.length + commandName.length + 1);
 

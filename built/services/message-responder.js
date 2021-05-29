@@ -31,14 +31,13 @@ let MessageResponder = class MessageResponder {
     constructor() {
         this.handlers = [];
         // Define the handler to test
-        let handler = [];
-        handler.push(new help_handler_1.HelpHandler());
-        handler.push(new notice_handler_1.NoticeHandler());
-        handler.push(new event_handler_1.EventHandler());
-        handler.push(new planning_handler_1.PlanningHandler());
-        handler.push(new clear_handler_1.ClearHandler());
-        handler.push(new random_handler_1.RandomHandler());
-        handler.push(new portrait_handler_1.PortraitHandler());
+        this.handlers.push(new help_handler_1.HelpHandler());
+        this.handlers.push(new notice_handler_1.NoticeHandler());
+        this.handlers.push(new event_handler_1.EventHandler());
+        this.handlers.push(new planning_handler_1.PlanningHandler());
+        this.handlers.push(new clear_handler_1.ClearHandler());
+        this.handlers.push(new random_handler_1.RandomHandler());
+        this.handlers.push(new portrait_handler_1.PortraitHandler());
     }
     handle(message) {
         return __awaiter(this, void 0, void 0, function* () {

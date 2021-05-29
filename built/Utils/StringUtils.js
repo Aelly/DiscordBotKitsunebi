@@ -29,7 +29,6 @@ class StringUtils {
     static getCommandUniqueArgument(message) {
         let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
         // Remove the part we already know (prefix + command)
-        //  and split to get the two part of the parameter
         const commandName = this.getCommandName(message);
         const arg = message.slice(bot.prefix.length + commandName.length + 1);
         return arg;

@@ -23,7 +23,12 @@ class PortraitHandler {
     }
     sendResponse(message) {
         return __awaiter(this, void 0, void 0, function* () {
-            const portraitURL = yield this.lodestoneAPI.getPortrait();
+            const characterNameToSearch = StringUtils_1.default.getCommandUniqueArgument(message.content);
+            if (characterNameToSearch == "") {
+                console.log("Send usage");
+                return;
+            }
+            const portraitURL = yield this.lodestoneAPI.getPortrait(characterNameToSearch);
             message.channel.send(portraitURL);
         });
     }

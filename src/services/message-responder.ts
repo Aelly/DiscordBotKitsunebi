@@ -15,14 +15,13 @@ export class MessageResponder {
 
     constructor() {
         // Define the handler to test
-        let handler: CommandHandler[] = [];
-        handler.push(new HelpHandler());
-        handler.push(new NoticeHandler());
-        handler.push(new EventHandler());
-        handler.push(new PlanningHandler());
-        handler.push(new ClearHandler());
-        handler.push(new RandomHandler());
-        handler.push(new PortraitHandler());
+        this.handlers.push(new HelpHandler());
+        this.handlers.push(new NoticeHandler());
+        this.handlers.push(new EventHandler());
+        this.handlers.push(new PlanningHandler());
+        this.handlers.push(new ClearHandler());
+        this.handlers.push(new RandomHandler());
+        this.handlers.push(new PortraitHandler());
     }
 
     async handle(message: Message): Promise<void> {

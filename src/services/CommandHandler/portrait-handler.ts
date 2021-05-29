@@ -1,4 +1,4 @@
-import { FFXIVLodestoneAPI } from "./../Api/ffxiv-lodestone-api";
+import { FFXIVLodestoneAPI } from "./../Api/FFXIVLodestone/ffxiv-lodestone-api";
 import { Message } from "discord.js";
 import StringUtils from "../../Utils/StringUtils";
 import { CommandHandler } from "./i-command-handler";
@@ -19,7 +19,15 @@ export class PortraitHandler implements CommandHandler {
     }
 
     public async sendResponse(message: Message): Promise<void> {
-        const portraitURL : string = await this.lodestoneAPI.getPortrait();
+        const characterNameToSearch = StringUtils.getCommandUniqueArgument(message.content);
+
+        if(characterNameToSearch == "")
+        {
+            console.log("Send usage");
+            return;
+        }
+
+        const portraitURL : string = await this.lodestoneAPI.getPortrait(characterNameToSearch);
         message.channel.send(portraitURL);
     }
 }

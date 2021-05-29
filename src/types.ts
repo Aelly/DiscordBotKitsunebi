@@ -5,5 +5,6 @@ export const TYPES = {
   Prefix: Symbol("Prefix"),
   EmbedColor : Symbol("EmbedColor"),
   MessageResponder: Symbol("MessageResponder"),
+  LodestoneApiKey : Symbol("LodestoneApiKey"),
   LodestoneAPI : Symbol("LodestoneAPI"),
 };
