@@ -19,6 +19,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageResponder = void 0;
+const portrait_handler_1 = require("./CommandHandler/portrait-handler");
 const random_handler_1 = require("./CommandHandler/random-handler");
 const clear_handler_1 = require("./CommandHandler/clear-handler");
 const planning_handler_1 = require("./CommandHandler/planning-handler");
@@ -30,12 +31,14 @@ let MessageResponder = class MessageResponder {
     constructor() {
         this.handlers = [];
         // Define the handler to test
-        this.handlers.push(new help_handler_1.HelpHandler());
-        this.handlers.push(new notice_handler_1.NoticeHandler());
-        this.handlers.push(new event_handler_1.EventHandler());
-        this.handlers.push(new planning_handler_1.PlanningHandler());
-        this.handlers.push(new clear_handler_1.ClearHandler());
-        this.handlers.push(new random_handler_1.RandomHandler());
+        let handler = [];
+        handler.push(new help_handler_1.HelpHandler());
+        handler.push(new notice_handler_1.NoticeHandler());
+        handler.push(new event_handler_1.EventHandler());
+        handler.push(new planning_handler_1.PlanningHandler());
+        handler.push(new clear_handler_1.ClearHandler());
+        handler.push(new random_handler_1.RandomHandler());
+        handler.push(new portrait_handler_1.PortraitHandler());
     }
     handle(message) {
         return __awaiter(this, void 0, void 0, function* () {

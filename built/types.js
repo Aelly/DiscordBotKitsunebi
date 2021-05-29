@@ -8,5 +8,6 @@ exports.TYPES = {
     Prefix: Symbol("Prefix"),
     EmbedColor: Symbol("EmbedColor"),
     MessageResponder: Symbol("MessageResponder"),
+    LodestoneAPI: Symbol("LodestoneAPI"),
 };
 //# sourceMappingURL=types.js.map

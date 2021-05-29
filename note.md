@@ -2,6 +2,12 @@
 
 ## TODO
 
+### Debug
+
+- [ ] UnhandlelPromiseRejection : "!notice a", "!clear 99"
+
+### Command
+
 - [x] Clear
 - [x] Notice
 - [x] Planning
@@ -12,13 +18,17 @@
 - [x] Delete message when sending response
 - [x] Delete instance in memory when message is deleted on the discord server
 
+### Archi
+
 - [x] Meilleur gestion de la création du 1er embed (les fields sont mise en dure dans l'envoi alors que les reaction sont faire en dynamique par rapport au role)
 - [ ] Manager quelconque pour ne pas recréer les roles d'un même type d'embed à chaque fois dans le constructeur (ne change jamais lors de l'éxécution)
+  
+### Publication
 
 - [ ] ReadMe How to use / How to dev
-- [ ] Nouveau repo git en publique (enlever le token de .env, push, ajouter .env dans le gitignore)
+- [x] Nouveau repo git en publique (enlever le token de .env, push, ajouter .env dans le gitignore)
 
-## To look up
+### To look up
 
 - InversifyJS
 - Mocha, Chai, ts-mockito
@@ -29,4 +39,27 @@
   
 ## Just for fun
 
-- Link [FF XIV API](https://xivapi.com/docs)
+### [FF XIV API](https://xivapi.com/docs)
+
+> https://xivapi.com/character/search?name=Rhuya Lihzeh&private_key=APIKEY&server=Omega
+
+``` lang-json
+Pagination	
+    Page	1
+    PageNext	null
+    PagePrev	null
+    PageTotal	1
+    Results	1
+    ResultsPerPage	50
+    ResultsTotal	1
+Results	
+    0	
+        Avatar	"https://img2.finalfantasyxiv.com/f/3e284290e7545cb58792a178cd5c88bd_39e25ac3d737c46452305eefe324372cfc0_96x96.jpg?1621786184"
+        FeastMatches	0
+        ID	11892371
+        Lang	"EN/FR"
+        Name	"Rhuya Lihzeh"
+        Rank	null
+        RankIcon	null
+        Server	"Omega (Chaos)"
+```
