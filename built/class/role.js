@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Role = void 0;
 class Role {
     constructor(roleName, emoteFallbackValue) {
+        this.shouldCountInNbTotalParticipan = true;
         this.roleName = roleName;
         this.emoteServerValue = new Map();
         this.emoteFallbackValue = emoteFallbackValue;

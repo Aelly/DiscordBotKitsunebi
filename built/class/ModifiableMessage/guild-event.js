@@ -35,6 +35,7 @@ class GuildEvent extends modifiable_message_1.ModifiableMessage {
         this.roles.push(dpsRole);
         // IfNeeded
         const ifNeededRole = new role_1.Role("Si besoin", "❤");
+        ifNeededRole.shouldCountInNbTotalParticipan = false;
         this.roles.push(ifNeededRole);
     }
     constructMessageEmbed() {
@@ -43,7 +44,9 @@ class GuildEvent extends modifiable_message_1.ModifiableMessage {
             // Get the total of all participant in the event
             let combinedUsers = [];
             for (let role of this.roles) {
-                combinedUsers = combinedUsers.concat(role.usersRegistered);
+                if (role.shouldCountInNbTotalParticipan) {
+                    combinedUsers = combinedUsers.concat(role.usersRegistered);
+                }
             }
             let nbOfParcicipant = combinedUsers.filter((n, i) => combinedUsers.indexOf(n) === i).length;
             // Prepare the corresponding embed message

@@ -29,6 +29,7 @@ export class GuildEvent extends ModifiableMessage {
         this.roles.push(dpsRole);
         // IfNeeded
         const ifNeededRole: Role = new Role("Si besoin", "❤");
+        ifNeededRole.shouldCountInNbTotalParticipan = false;
         this.roles.push(ifNeededRole);
     }
 
@@ -38,7 +39,9 @@ export class GuildEvent extends ModifiableMessage {
         // Get the total of all participant in the event
         let combinedUsers: User[] = [];
         for (let role of this.roles) {
-            combinedUsers = combinedUsers.concat(role.usersRegistered);
+            if (role.shouldCountInNbTotalParticipan) {
+                combinedUsers = combinedUsers.concat(role.usersRegistered);
+            }
         }
         let nbOfParcicipant: number = combinedUsers.filter((n, i) => combinedUsers.indexOf(n) === i).length;
 
@@ -54,7 +57,7 @@ export class GuildEvent extends ModifiableMessage {
                 const userName: string = await DiscordUtils.getUserNicknameWithoutEmoji(user, this.message.guild);
                 usernames.push(userName);
             }
-            
+
             const fieldValue = usernames.join("\n") || "\u200b";
 
             messageEmbed = messageEmbed.addField(role.roleName, fieldValue, true);
@@ -62,6 +65,4 @@ export class GuildEvent extends ModifiableMessage {
 
         return messageEmbed;
     }
-
-    
 }

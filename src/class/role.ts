@@ -8,6 +8,8 @@ export class Role{
 
     public usersRegistered : User[];
 
+    public shouldCountInNbTotalParticipan : boolean = true;
+
     constructor(roleName : string, emoteFallbackValue : string)
     {
         this.roleName = roleName;
