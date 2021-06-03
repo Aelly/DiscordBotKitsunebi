@@ -19,6 +19,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageResponder = void 0;
+const inversify_1 = require("inversify");
 const portrait_handler_1 = require("./CommandHandler/portrait-handler");
 const random_handler_1 = require("./CommandHandler/random-handler");
 const clear_handler_1 = require("./CommandHandler/clear-handler");
@@ -26,7 +27,7 @@ const planning_handler_1 = require("./CommandHandler/planning-handler");
 const event_handler_1 = require("./CommandHandler/event-handler");
 const help_handler_1 = require("./CommandHandler/help-handler");
 const notice_handler_1 = require("./CommandHandler/notice-handler");
-const inversify_1 = require("inversify");
+const charac_info_handler_1 = require("./CommandHandler/charac-info-handler");
 let MessageResponder = class MessageResponder {
     constructor() {
         this.handlers = [];
@@ -38,6 +39,7 @@ let MessageResponder = class MessageResponder {
         this.handlers.push(new clear_handler_1.ClearHandler());
         this.handlers.push(new random_handler_1.RandomHandler());
         this.handlers.push(new portrait_handler_1.PortraitHandler());
+        this.handlers.push(new charac_info_handler_1.CharacInfoHandler());
     }
     handle(message) {
         return __awaiter(this, void 0, void 0, function* () {

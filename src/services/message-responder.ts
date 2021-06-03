@@ -1,3 +1,5 @@
+import { Message } from "discord.js";
+import { injectable } from "inversify";
 import { PortraitHandler } from "./CommandHandler/portrait-handler";
 import { RandomHandler } from "./CommandHandler/random-handler";
 import { ClearHandler } from "./CommandHandler/clear-handler";
@@ -6,8 +8,7 @@ import { EventHandler } from "./CommandHandler/event-handler";
 import { CommandHandler } from "./CommandHandler/i-command-handler";
 import { HelpHandler } from "./CommandHandler/help-handler";
 import { NoticeHandler } from "./CommandHandler/notice-handler";
-import { Message } from "discord.js";
-import { injectable } from "inversify";
+import { CharacInfoHandler } from "./CommandHandler/charac-info-handler";
 
 @injectable()
 export class MessageResponder {
@@ -22,6 +23,7 @@ export class MessageResponder {
         this.handlers.push(new ClearHandler());
         this.handlers.push(new RandomHandler());
         this.handlers.push(new PortraitHandler());
+        this.handlers.push(new CharacInfoHandler());
     }
 
     async handle(message: Message): Promise<void> {

@@ -43,23 +43,38 @@
 
 > https://xivapi.com/character/search?name=Rhuya Lihzeh&private_key=APIKEY&server=Omega
 
-``` lang-json
-Pagination	
-    Page	1
-    PageNext	null
-    PagePrev	null
-    PageTotal	1
-    Results	1
-    ResultsPerPage	50
-    ResultsTotal	1
-Results	
-    0	
-        Avatar	"https://img2.finalfantasyxiv.com/f/3e284290e7545cb58792a178cd5c88bd_39e25ac3d737c46452305eefe324372cfc0_96x96.jpg?1621786184"
-        FeastMatches	0
-        ID	11892371
-        Lang	"EN/FR"
-        Name	"Rhuya Lihzeh"
-        Rank	null
-        RankIcon	null
-        Server	"Omega (Chaos)"
-```
+Paladin 1
+War 3
+Dark Knight 32
+Gun breaker 37
+
+Monk 2
+Dragoon 4
+Ninja 29
+Samurai 34
+
+White mage 6
+Scholar 26
+Astro 33
+
+Bard 5
+Machinist 31
+Dancer 38
+
+Black mage 7
+Summoner 26
+Red mage 35
+Blue mage 36
+
+Carpenter 8
+BlackSmith 9
+Armorer 10
+GoldSmith 11
+Leatherworker 12
+Weaver 13
+Alchemist 14
+Culinarian 15
+
+Miner 16
+Botanist 17
+Fisher 18

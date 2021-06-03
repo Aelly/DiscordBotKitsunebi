@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { FFXIVLodestoneAPI } from "./services/Api/FFXIVLodestone/ffxiv-lodestone-api";
+import { FFXIVLodestoneAPICalls } from "./services/Api/FFXIVLodestone/ffxiv-lodestone-api-calls";
 import { Container } from "inversify";
 import { TYPES } from "./types";
 import { Bot } from "./bot";
@@ -18,6 +18,6 @@ container.bind<Client>(TYPES.Client).toConstantValue(new Client());
 
 container.bind<MessageResponder>(TYPES.MessageResponder).to(MessageResponder).inSingletonScope();
 
-container.bind<FFXIVLodestoneAPI>(TYPES.LodestoneAPI).to(FFXIVLodestoneAPI).inSingletonScope();
+container.bind<FFXIVLodestoneAPICalls>(TYPES.LodestoneAPI).to(FFXIVLodestoneAPICalls).inSingletonScope();
 
 export default container;

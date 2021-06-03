@@ -9,12 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PortraitHandler = void 0;
+exports.CharacInfoHandler = void 0;
 const StringUtils_1 = require("../../Utils/StringUtils");
 const ffxiv_lodestone_api_utils_1 = require("../Api/FFXIVLodestone/ffxiv-lodestone-api-utils");
-class PortraitHandler {
+class CharacInfoHandler {
     constructor() {
-        this.commandName = "portrait";
+        this.commandName = "character";
     }
     detectIfType(message) {
         return StringUtils_1.default.getCommandName(message.content) == this.commandName;
@@ -23,16 +23,16 @@ class PortraitHandler {
         return __awaiter(this, void 0, void 0, function* () {
             const characterNameToSearch = StringUtils_1.default.getCommandUniqueArgument(message.content);
             if (characterNameToSearch == "") {
-                yield message.channel.send("J'ai besoin du nom du personnage (ex: !portrait Rhuya Lihzeh");
+                yield message.channel.send("J'ai besoin du nom du personnage (ex: !character Rhuya Lihzeh");
                 return;
             }
             // The API calls can take a few seconds so we send a waiting message
             const waitingMessage = yield message.channel.send("Récupération des informations...");
-            const response = yield ffxiv_lodestone_api_utils_1.FFXIVLodestoneAPIUtils.getPortrait(characterNameToSearch);
+            const response = yield ffxiv_lodestone_api_utils_1.FFXIVLodestoneAPIUtils.getCharacterSheet(characterNameToSearch);
             waitingMessage.delete();
             message.channel.send(response);
         });
     }
 }
-exports.PortraitHandler = PortraitHandler;
-//# sourceMappingURL=portrait-handler.js.map
+exports.CharacInfoHandler = CharacInfoHandler;
+//# sourceMappingURL=charac-info-handler.js.map

@@ -21,29 +21,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FFXIVLodestoneAPI = void 0;
-const types_1 = require("./../../../types");
+exports.FFXIVLodestoneAPICalls = void 0;
+const types_1 = require("../../../types");
 const inversify_1 = require("inversify");
 const url_1 = require("url");
 const fetch = require("node-fetch");
-// TODO : Rajouter un message d'attente sur Discord pendant les requetes
-let FFXIVLodestoneAPI = class FFXIVLodestoneAPI {
+let FFXIVLodestoneAPICalls = class FFXIVLodestoneAPICalls {
     constructor(lodestoneApiKey) {
         this.apiKey = "";
         this.apiKey = lodestoneApiKey;
-    }
-    getPortrait(characterName) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const charactId = yield this.getCharacterId(characterName);
-            if (charactId == null)
-                return "Erreur avec l'API Lodestone, rééssayer plus tard.";
-            else if (charactId == -1)
-                return "Erreur, je n'ai pas trouvé de personne avec ce nom.";
-            else if (charactId == -2)
-                return "Plus d'un personnage trouvé avec ce nom.";
-            const characInfo = yield this.getCharacterInfo(charactId);
-            return characInfo.Character.Portrait;
-        });
     }
     getCharacterId(characterName, characterServer = "Omega") {
         return __awaiter(this, void 0, void 0, function* () {
@@ -78,10 +64,10 @@ let FFXIVLodestoneAPI = class FFXIVLodestoneAPI {
         });
     }
 };
-FFXIVLodestoneAPI = __decorate([
+FFXIVLodestoneAPICalls = __decorate([
     inversify_1.injectable(),
     __param(0, inversify_1.inject(types_1.TYPES.LodestoneApiKey)),
     __metadata("design:paramtypes", [String])
-], FFXIVLodestoneAPI);
-exports.FFXIVLodestoneAPI = FFXIVLodestoneAPI;
-//# sourceMappingURL=ffxiv-lodestone-api.js.map
+], FFXIVLodestoneAPICalls);
+exports.FFXIVLodestoneAPICalls = FFXIVLodestoneAPICalls;
+//# sourceMappingURL=ffxiv-lodestone-api-calls.js.map

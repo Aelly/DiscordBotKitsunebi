@@ -1,10 +1,10 @@
-import { Message, StringResolvable } from "discord.js";
+import {  Message,  StringResolvable } from "discord.js";
 import StringUtils from "../../Utils/StringUtils";
 import { CommandHandler } from "./i-command-handler";
 import { FFXIVLodestoneAPIUtils } from "../Api/FFXIVLodestone/ffxiv-lodestone-api-utils";
 
-export class PortraitHandler implements CommandHandler {
-    commandName: string = "portrait";
+export class CharacInfoHandler implements CommandHandler {
+    commandName: string = "character";
 
     public detectIfType(message: Message): boolean {
         return StringUtils.getCommandName(message.content) == this.commandName;
@@ -15,14 +15,14 @@ export class PortraitHandler implements CommandHandler {
 
         if(characterNameToSearch == "")
         {
-            await message.channel.send("J'ai besoin du nom du personnage (ex: !portrait Rhuya Lihzeh");
+            await message.channel.send("J'ai besoin du nom du personnage (ex: !character Rhuya Lihzeh");
             return;
         }
 
         // The API calls can take a few seconds so we send a waiting message
         const waitingMessage : Message = await message.channel.send("Récupération des informations...");
 
-        const response : StringResolvable = await FFXIVLodestoneAPIUtils.getPortrait(characterNameToSearch);
+        const response : StringResolvable = await FFXIVLodestoneAPIUtils.getCharacterSheet(characterNameToSearch);
 
         waitingMessage.delete();
         message.channel.send(response);

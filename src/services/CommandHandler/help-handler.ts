@@ -16,7 +16,8 @@ export class HelpHandler implements CommandHandler {
         response += "- !event [Titre] - [Description]\n";
         response += "- !planning\n";
         response += "- !clear [Nb message à supprimer]\n";
-        response += "- !rand";
+        response += "- !rand\n";
+        response += "- !portrait [Nom du personnage]";
 
         message.reply(response);
     }
