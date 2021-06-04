@@ -22,7 +22,6 @@ export class FFXIVLodestoneAPIUtils {
         return characInfo.Character.Portrait;
     }
 
-    // TODO : Passer le message en français (nom de job + nom de role)
     public static async getCharacterSheet(characterName: string): Promise<StringResolvable> {
         const lodestoneAPI: FFXIVLodestoneAPICalls = container.get<FFXIVLodestoneAPICalls>(TYPES.LodestoneAPI);
 

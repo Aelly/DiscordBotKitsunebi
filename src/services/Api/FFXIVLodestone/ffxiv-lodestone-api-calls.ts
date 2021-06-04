@@ -15,10 +15,7 @@ export class FFXIVLodestoneAPICalls {
         this.apiKey = lodestoneApiKey;
     }
 
-    public async getCharacterId(
-        characterName: string,
-        characterServer: string = "Omega"
-    ): Promise<number> {
+    public async getCharacterId(characterName: string, characterServer: string = "Omega"): Promise<number> {
         var url = new URL("https://xivapi.com/character/search?");
 
         var params: [string, string][] = [
@@ -33,20 +30,20 @@ export class FFXIVLodestoneAPICalls {
 
         if (!response.ok) return null;
 
-        const searchData : FFXIVCharacterSearch.RootObject = await response.json();
+        const searchData: FFXIVCharacterSearch.RootObject = await response.json();
 
-        if(searchData.Results.length == 0)
-            return -1;
-        else if(searchData.Results.length > 1)
-            return -2;
-        else
-            return searchData.Results[0].ID;
+        if (searchData.Results.length == 0) return -1;
+        else if (searchData.Results.length > 1) return -2;
+        else return searchData.Results[0].ID;
     }
 
     public async getCharacterInfo(characId: number): Promise<FFXIVCharacterInfo.RootObject> {
         var url = new URL("https://xivapi.com/character/" + characId);
 
-        var params: [string, string][] = [["private_key", this.apiKey]];
+        var params: [string, string][] = [
+            ["private_key", this.apiKey],
+            ["language", "fr"],
+        ];
 
         url.search = new URLSearchParams(params).toString();
 
