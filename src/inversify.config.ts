@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { FFXIVLodestoneAPICalls } from "./services/Api/FFXIVLodestone/ffxiv-lodestone-api-calls";
+import { FFXIVLodestoneAPICalls } from "./services/Api/FFXIVLodestone/Calls/ffxiv-lodestone-api-calls";
 import { Container } from "inversify";
 import { TYPES } from "./types";
 import { Bot } from "./bot";

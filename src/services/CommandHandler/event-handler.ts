@@ -2,7 +2,7 @@ import { GuildEvent } from "../../class/ModifiableMessage/guild-event";
 import { CommandHandler } from "./i-command-handler";
 import { injectable } from "inversify";
 import { Message } from "discord.js";
-import StringUtils from "../../Utils/StringUtils";
+import StringUtils from "../../Utils/stringUtils";
 import container from "../../inversify.config";
 import { Bot } from "../../bot";
 import { TYPES } from "../../types";

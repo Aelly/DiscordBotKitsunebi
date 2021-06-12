@@ -1,7 +1,7 @@
 import { TYPES } from "./../../types";
 import { CommandHandler } from "./i-command-handler";
 import {  injectable } from "inversify";
-import StringUtils from "../../Utils/StringUtils";
+import StringUtils from "../../Utils/stringUtils";
 import { Message, MessageEmbed } from "discord.js";
 import container from "../../inversify.config";
 import { Bot } from "../../bot";

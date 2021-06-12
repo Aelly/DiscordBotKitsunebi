@@ -1,7 +1,7 @@
 import { Planning } from './../../class/ModifiableMessage/planning';
 import { CommandHandler } from './i-command-handler';
 import { Message } from 'discord.js';
-import StringUtils from '../../Utils/StringUtils';
+import StringUtils from '../../Utils/stringUtils';
 import { TYPES } from '../../types';
 import container from '../../inversify.config';
 import { Bot } from '../../bot';

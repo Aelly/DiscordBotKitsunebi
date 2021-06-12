@@ -1,7 +1,7 @@
 import { CommandHandler } from "./i-command-handler";
 import { Message } from "discord.js";
 import { injectable } from "inversify";
-import StringUtils from "../../Utils/StringUtils";
+import StringUtils from "../../Utils/stringUtils";
 
 export class HelpHandler implements CommandHandler {
     commandName: string = "help";

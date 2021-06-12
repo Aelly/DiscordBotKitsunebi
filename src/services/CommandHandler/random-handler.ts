@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import StringUtils from '../../Utils/StringUtils';
+import StringUtils from '../../Utils/stringUtils';
 import { CommandHandler } from './i-command-handler';
 
 export class RandomHandler implements CommandHandler{

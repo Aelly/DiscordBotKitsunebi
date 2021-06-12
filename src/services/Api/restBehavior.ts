@@ -67,10 +67,18 @@ export default class RestBehavior {
     }
 
     protected async getHttp<Out = any>(path: string, headers?: object): Promise<Out> {
-        return await this.request<Out>(HttpMethod.Get, path, {}, headers);
+        try {
+            return await this.request<Out>(HttpMethod.Get, path, {}, headers);
+        } catch (e) {
+            return null;
+        }
     }
 
     protected async postHttp<Out = any, In = any>(path: string, req?: In, headers?: object): Promise<Out> {
-        return await this.request<Out, In>(HttpMethod.Post, path, req, headers);
+        try {
+            return await this.request<Out, In>(HttpMethod.Post, path, req, headers);
+        } catch (e) {
+            return null;
+        }
     }
 }

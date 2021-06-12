@@ -1,9 +1,9 @@
 import { MessageEmbed, StringResolvable } from "discord.js";
 import container from "../../../inversify.config";
 import { TYPES } from "../../../types";
-import { FFXIVLodestoneAPICalls } from "./ffxiv-lodestone-api-calls";
+import { FFXIVLodestoneAPICalls } from "./Calls/ffxiv-lodestone-api-calls";
 
-import { FFXIVCharacterInfo } from "./ffxiv-lodestone-api-character-info";
+import { FFXIVCharacterInfo } from "./interfaces/ffxiv-lodestone-api-character-info";
 
 export class FFXIVLodestoneAPIUtils {
     public static async getPortrait(characterName: string): Promise<StringResolvable> {
@@ -52,17 +52,17 @@ export class FFXIVLodestoneAPIUtils {
 
         // Add field for each jobs category
         let jobTypeIDArray: Array<[string, number[]]> = new Array();
-        jobTypeIDArray.push(["Tank", [1, 3, 32, 37]]);
-        jobTypeIDArray.push(["Healer", [6, 26, 33]]);
-        jobTypeIDArray.push(["Mele", [2, 4, 29, 34]]);
-        jobTypeIDArray.push(["Range", [5, 31, 38]]);
+        jobTypeIDArray.push(["Tank", [19, 21, 32, 37]]);
+        jobTypeIDArray.push(["Healer", [24, 28, 33]]);
+        jobTypeIDArray.push(["Mele", [20, 22, 30, 34]]);
+        jobTypeIDArray.push(["Range", [23, 31, 38, 25, 27, 35, 36]]);
         jobTypeIDArray.push(["Crafter", [8, 9, 10,  11, 12, 13, 14, 15]]);
         jobTypeIDArray.push(["Gatherer", [16, 17, 18]]);
 
         for (const jobType of jobTypeIDArray) {
             // Filter to only select the job of this category
             const filteredList: FFXIVCharacterInfo.ClassJob[] = characInfo.Character.ClassJobs.filter((x) =>
-                jobType[1].includes(x.ClassID)
+                jobType[1].includes(x.JobID)
             );
 
             // Construct the values of the job category field (job name : level)

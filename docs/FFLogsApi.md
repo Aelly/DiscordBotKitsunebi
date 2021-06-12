@@ -6,38 +6,38 @@ Percentile Colors
 Whenever you see a ranking or parse percentile, it is colored according to the percentile range it falls into. 100% is tan, 99+ is pink, 95+ is orange, etc. You can use these colors to quickly scan a player or guild's rankings to see how they did.
 ```
 
-## Class ID
+## Job ID
 
 ### Tank
 
-Paladin 1
-War 3
+Paladin 19
+War 21
 Dark Knight 32
 Gun breaker 37
 
 ### Healer
 
-White mage 6
-Scholar 26
+White mage 24
+Scholar 28
 Astro 33
 
 ### Mele
 
-Monk 2
-Dragoon 4
-Ninja 29
+Monk 20
+Dragoon 22
+Ninja 30
 Samurai 34
 
 ### Range
 
-Bard 5
+Bard 23
 Machinist 31
 Dancer 38
 
 ### Mage
 
-Black mage 7
-Summoner 26
+Black mage 25
+Summoner 27
 Red mage 35
 Blue mage 36
 

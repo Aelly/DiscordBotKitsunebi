@@ -3,7 +3,7 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "./types";
 import { MessageResponder } from "./services/message-responder";
 
-import StringUtils from "./Utils/StringUtils";
+import StringUtils from "./Utils/stringUtils";
 import { ModifiableMessage } from "./class/ModifiableMessage/modifiable-message";
 
 @injectable()

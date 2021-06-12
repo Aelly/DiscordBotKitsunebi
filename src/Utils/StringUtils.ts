@@ -1,6 +1,6 @@
-import { Bot } from "./../bot";
-import { TYPES } from "./../types";
-import container from "./../inversify.config";
+import { Bot } from "../bot";
+import { TYPES } from "../types";
+import container from "../inversify.config";
 
 export default class StringUtils {
     public static readonly TITLE_DESCRIPTION_SEPARATOR = " - ";

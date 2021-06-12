@@ -1,5 +1,5 @@
 import { Message, StringResolvable } from "discord.js";
-import StringUtils from "../../Utils/StringUtils";
+import StringUtils from "../../Utils/stringUtils";
 import { CommandHandler } from "./i-command-handler";
 import { FFXIVLodestoneAPIUtils } from "../Api/FFXIVLodestone/ffxiv-lodestone-api-utils";
 

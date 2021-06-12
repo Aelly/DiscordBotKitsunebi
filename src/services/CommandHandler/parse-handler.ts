@@ -1,6 +1,6 @@
 import { FFXIVLogsAPIUtils } from '../Api/FFXIVLog/ffxiv-log-api-utils';
 import {  Message,  StringResolvable } from "discord.js";
-import StringUtils from "../../Utils/StringUtils";
+import StringUtils from "../../Utils/stringUtils";
 import { CommandHandler } from "./i-command-handler";
 
 export class ParseHandler implements CommandHandler {
