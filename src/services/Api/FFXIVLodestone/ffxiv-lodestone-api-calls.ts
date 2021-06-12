@@ -8,7 +8,7 @@ import { FFXIVCharacterInfo } from "./ffxiv-lodestone-api-character-info";
 import { FFXIVCharacterSearch } from "./ffxiv-lodestone-api-character-search";
 
 @injectable()
-export class FFXIVLodestoneAPICalls {
+export class FFXIVLodestoneAPICalls{
     private apiKey: string = "";
 
     constructor(@inject(TYPES.LodestoneApiKey) lodestoneApiKey: string) {

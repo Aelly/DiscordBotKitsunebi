@@ -9,6 +9,7 @@ import { CommandHandler } from "./CommandHandler/i-command-handler";
 import { HelpHandler } from "./CommandHandler/help-handler";
 import { NoticeHandler } from "./CommandHandler/notice-handler";
 import { CharacInfoHandler } from "./CommandHandler/charac-info-handler";
+import { ParseHandler } from "./CommandHandler/parse-handler";
 
 @injectable()
 export class MessageResponder {
@@ -24,6 +25,7 @@ export class MessageResponder {
         this.handlers.push(new RandomHandler());
         this.handlers.push(new PortraitHandler());
         this.handlers.push(new CharacInfoHandler());
+        this.handlers.push(new ParseHandler());
     }
 
     async handle(message: Message): Promise<void> {

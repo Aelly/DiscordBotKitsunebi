@@ -4,7 +4,7 @@
 
 ### Debug
 
-- [ ] UnhandlelPromiseRejection : "!notice a", "!clear 99"
+- [x] UnhandlelPromiseRejection : "!notice a", "!clear 99"
 
 ### Command
 
@@ -42,39 +42,3 @@
 ### [FF XIV API](https://xivapi.com/docs)
 
 > https://xivapi.com/character/search?name=Rhuya Lihzeh&private_key=APIKEY&server=Omega
-
-Paladin 1
-War 3
-Dark Knight 32
-Gun breaker 37
-
-Monk 2
-Dragoon 4
-Ninja 29
-Samurai 34
-
-White mage 6
-Scholar 26
-Astro 33
-
-Bard 5
-Machinist 31
-Dancer 38
-
-Black mage 7
-Summoner 26
-Red mage 35
-Blue mage 36
-
-Carpenter 8
-BlackSmith 9
-Armorer 10
-GoldSmith 11
-Leatherworker 12
-Weaver 13
-Alchemist 14
-Culinarian 15
-
-Miner 16
-Botanist 17
-Fisher 18
