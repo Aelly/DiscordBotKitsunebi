@@ -19,6 +19,7 @@ export class HelpHandler implements CommandHandler {
         response += "- !rand\n";
         response += "- !portrait [Nom du personnage]\n";
         response += "- !character [Nom du personnage]\n";
+        response += "- !card [Nom du personnage]\n";
         response += "- !parse [Nom du personnage]\n";
 
         message.reply(response);

@@ -1,3 +1,5 @@
+// TODO Look up for namespace in typescript
+import { CardHandler } from './CommandHandler/card-handler';
 import { Message } from "discord.js";
 import { injectable } from "inversify";
 import { PortraitHandler } from "./CommandHandler/portrait-handler";
@@ -26,6 +28,7 @@ export class MessageResponder {
         this.handlers.push(new PortraitHandler());
         this.handlers.push(new CharacInfoHandler());
         this.handlers.push(new ParseHandler());
+        this.handlers.push(new CardHandler());
     }
 
     async handle(message: Message): Promise<void> {
