@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import { FFXIVCardCalls } from './services/Api/ffxiv-card-calls';
 import { FFXIVLodestoneAPICalls } from "./services/Api/FFXIVLodestone/Calls/ffxiv-lodestone-api-calls";
 import { Container } from "inversify";
 import { TYPES } from "./types";
@@ -25,5 +26,6 @@ container.bind<MessageResponder>(TYPES.MessageResponder).to(MessageResponder).in
 container.bind<FFXIVLodestoneAPICalls>(TYPES.LodestoneAPI).to(FFXIVLodestoneAPICalls).inSingletonScope();
 container.bind<FFXIVLogsAPIGraphql>(TYPES.FFLogApi).to(FFXIVLogsAPIGraphql).inSingletonScope();
 container.bind<FFXIVLogApiRest>(TYPES.FFLogsHttpAuth).to(FFXIVLogApiRest).inSingletonScope();
+container.bind<FFXIVCardCalls>(TYPES.FFCardsAPI).to(FFXIVCardCalls).inSingletonScope();
 
 export default container;

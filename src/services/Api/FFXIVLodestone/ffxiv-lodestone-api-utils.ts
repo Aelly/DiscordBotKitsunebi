@@ -1,3 +1,4 @@
+import { FFXIVCardCalls } from './../ffxiv-card-calls';
 import { MessageEmbed, StringResolvable } from "discord.js";
 import container from "../../../inversify.config";
 import { TYPES } from "../../../types";
@@ -80,13 +81,14 @@ export class FFXIVLodestoneAPIUtils {
 
     public static async getCharacterCard(characterName : string) : Promise<StringResolvable>{
         const lodestoneAPI: FFXIVLodestoneAPICalls = container.get<FFXIVLodestoneAPICalls>(TYPES.LodestoneAPI);
+        const cardAPI : FFXIVCardCalls = container.get<FFXIVCardCalls>(TYPES.FFCardsAPI);
 
-        const charactId: number = await lodestoneAPI.getCharacterId(characterName);
+        // const charactId: number = await lodestoneAPI.getCharacterId(characterName);
 
-        if (charactId == null) return "Erreur avec l'API Lodestone, rééssayer plus tard.";
-        else if (charactId == -1) return "Erreur, je n'ai pas trouvé de personne avec ce nom.";
-        else if (charactId == -2) return "Plus d'un personnage trouvé avec ce nom.";
+        return await cardAPI.prepareCharacterCardFromCharacterName(characterName, "Omega");
 
-        return `https://ffxiv-character-cards.herokuapp.com/characters/id/${charactId}.png`;
+        // if (charactId == null) return "Erreur avec l'API Lodestone, rééssayer plus tard.";
+        // else if (charactId == -1) return "Erreur, je n'ai pas trouvé de personne avec ce nom.";
+        // else if (charactId == -2) return "Plus d'un personnage trouvé avec ce nom.";
     }
 }

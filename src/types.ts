@@ -13,4 +13,5 @@ export const TYPES = {
   LodestoneAPI : Symbol("LodestoneAPI"),
   FFLogApi : Symbol("FFLogApi"),
   FFLogsHttpAuth : Symbol("FFLogsHttpAuth"),
+  FFCardsAPI : Symbol("FFCardsAPI"),
 };

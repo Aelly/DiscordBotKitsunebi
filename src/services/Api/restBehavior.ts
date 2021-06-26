@@ -52,6 +52,12 @@ export default class RestBehavior {
             throw err;
         }
 
+        // Handle automatic redirection
+        if(statusCode == 302)
+        {
+            console.log(body);
+        }
+
         let response;
         try {
             response = JSON.parse(buffer);
