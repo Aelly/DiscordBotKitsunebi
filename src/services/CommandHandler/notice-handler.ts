@@ -1,16 +1,13 @@
 import { TYPES } from "./../../types";
-import { CommandHandler } from "./i-command-handler";
-import {  injectable } from "inversify";
 import StringUtils from "../../Utils/stringUtils";
 import { Message, MessageEmbed } from "discord.js";
 import container from "../../inversify.config";
 import { Bot } from "../../bot";
+import { AbstractCommandHandler } from "./abstract-command-handler";
 
-export class NoticeHandler implements CommandHandler {
-    commandName: string = "notice";
-
-    public detectIfType(message: Message): boolean {
-        return StringUtils.getCommandName(message.content) == this.commandName;
+export class NoticeHandler extends AbstractCommandHandler {
+    constructor(){
+        super("notice");
     }
 
     public sendResponse(message: Message): void {

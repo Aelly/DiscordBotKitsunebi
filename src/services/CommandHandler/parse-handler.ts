@@ -10,6 +10,9 @@ export class ParseHandler implements CommandHandler {
         return StringUtils.getCommandName(message.content) == this.commandName;
     }
 
+    // TODO Add handle for iOs special ' character
+    //.!parse Shiro d'erable -> everywhere
+    //.!parse Shiro d’erable -> iOs default character
     public async sendResponse(message: Message): Promise<void> {
         const characterNameToSearch = StringUtils.getCommandUniqueArgument(message.content);
 

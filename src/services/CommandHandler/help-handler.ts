@@ -1,13 +1,9 @@
-import { CommandHandler } from "./i-command-handler";
 import { Message } from "discord.js";
-import { injectable } from "inversify";
-import StringUtils from "../../Utils/stringUtils";
+import { AbstractCommandHandler } from "./abstract-command-handler";
 
-export class HelpHandler implements CommandHandler {
-    commandName: string = "help";
-
-    detectIfType(message: Message): boolean {
-        return StringUtils.getCommandName(message.content) == this.commandName;
+export class HelpHandler extends AbstractCommandHandler {
+    constructor() {
+        super("help");
     }
 
     public sendResponse(message: Message): void {

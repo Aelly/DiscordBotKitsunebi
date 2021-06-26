@@ -1,12 +1,9 @@
 import { Message } from 'discord.js';
-import StringUtils from '../../Utils/stringUtils';
-import { CommandHandler } from './i-command-handler';
+import { AbstractCommandHandler } from './abstract-command-handler';
 
-export class RandomHandler implements CommandHandler{
-    commandName: string = "rand";
-
-    detectIfType(message: Message): boolean {
-        return StringUtils.getCommandName(message.content) == this.commandName;
+export class RandomHandler extends AbstractCommandHandler{
+    constructor(){
+        super("rand");
     }
     
     async sendResponse(message: Message): Promise<void> {

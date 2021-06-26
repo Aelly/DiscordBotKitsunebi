@@ -6,12 +6,11 @@ import StringUtils from "../../Utils/stringUtils";
 import container from "../../inversify.config";
 import { Bot } from "../../bot";
 import { TYPES } from "../../types";
+import { AbstractCommandHandler } from "./abstract-command-handler";
 
-export class EventHandler implements CommandHandler {
-    commandName: string = "event";
-
-    public detectIfType(message: Message): boolean {
-        return StringUtils.getCommandName(message.content) == this.commandName;
+export class EventHandler extends AbstractCommandHandler {
+    constructor() {
+        super("event");
     }
 
     public async sendResponse(message: Message): Promise<void> {

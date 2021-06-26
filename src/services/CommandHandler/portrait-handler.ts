@@ -1,13 +1,11 @@
 import { Message, StringResolvable } from "discord.js";
 import StringUtils from "../../Utils/stringUtils";
-import { CommandHandler } from "./i-command-handler";
 import { FFXIVLodestoneAPIUtils } from "../Api/FFXIVLodestone/ffxiv-lodestone-api-utils";
+import { AbstractCommandHandler } from "./abstract-command-handler";
 
-export class PortraitHandler implements CommandHandler {
-    commandName: string = "portrait";
-
-    public detectIfType(message: Message): boolean {
-        return StringUtils.getCommandName(message.content) == this.commandName;
+export class PortraitHandler extends AbstractCommandHandler {
+    constructor(){
+        super("portrait");
     }
 
     public async sendResponse(message: Message): Promise<void> {
