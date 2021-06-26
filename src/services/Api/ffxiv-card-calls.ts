@@ -3,11 +3,6 @@ import RestBehavior from "./restBehavior";
 
 @injectable()
 export class FFXIVCardCalls extends RestBehavior {
-    // https://ffxiv-character-cards.herokuapp.com/characters/id/<LODESTONE ID>.png
-    // https://ffxiv-character-cards.herokuapp.com/characters/name/<WORLD>/<CHARACTER NAME>.png
-
-    // https://ffxiv-character-cards.herokuapp.com/prepare/id/<LODESTONE ID>
-    // https://ffxiv-character-cards.herokuapp.com/prepare/name/<WORLD>/<CHARACTER NAME>
 
     readonly baseURL: string;
 
@@ -30,8 +25,12 @@ export class FFXIVCardCalls extends RestBehavior {
     }
 
     public async prepareCharacterCardFromCharacterName(characterName: string, characterServer: string): Promise<string> {
-        const arg = "/prepare/name/" + characterServer + '/' + "Rhuya";
-        var res = await this.getHttp(arg);
+        const arg : string = "/prepare/name/" + characterServer + '/' + characterName;
+        const argEncoded = arg.replace(' ', '%20');
+        var res = await this.getHttp(argEncoded);
+
+        if(res == null)
+            return "Aucun personnage trouvé avec ce nom";
 
         if (res.status == "ok") return this.baseURL + res.url;
         else return "Erreur lors de la préparation de l'image";

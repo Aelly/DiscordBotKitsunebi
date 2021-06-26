@@ -26,37 +26,52 @@ export default class RestBehavior {
         method: HttpMethod,
         path: string,
         req?: In,
-        headers?: object
+        requestHeaders?: object
     ): Promise<Out> {
-        const options: Client.RequestOptions = {
+        var options: Client.RequestOptions = {
             path,
             method,
             headers: {
                 "Content-Type": "application/json",
-                ...(headers || {}),
+                ...(requestHeaders || {}),
             },
         };
         if (method === HttpMethod.Post && req) {
             options.body = JSON.stringify(req);
         }
-        const { statusCode, body } = await this.pool.request(options);
+        var ret : { statusCode, body, headers } = await this.pool.request(options);
+
+        // Handle automatic redirection
+        while(ret.statusCode == 302 && ret.headers.location != null)
+        {
+            path = ret.headers.location;
+
+            options = {
+                path,
+                method,
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(requestHeaders || {}),
+                },
+            };
+            if (method === HttpMethod.Post && req) {
+                options.body = JSON.stringify(req);
+            }
+
+            ret = await this.pool.request(options);
+        }
 
         let buffer = "";
         try {
-            body.setEncoding("utf8");
-            for await (const data of body) {
+            ret.body.setEncoding("utf8");
+            for await (const data of ret.body) {
                 buffer = buffer.concat(data);
             }
         } catch (err) {
-            body.destroy();
+            ret.body.destroy();
             throw err;
         }
 
-        // Handle automatic redirection
-        if(statusCode == 302)
-        {
-            console.log(body);
-        }
 
         let response;
         try {
@@ -66,8 +81,8 @@ export default class RestBehavior {
             if (response.length === 0) response = undefined;
         }
 
-        if (statusCode >= 300) {
-            throw new HttpError(statusCode.toString(), response);
+        if (ret.statusCode >= 300) {
+            throw new HttpError(ret.statusCode.toString(), response);
         }
         return response;
     }
