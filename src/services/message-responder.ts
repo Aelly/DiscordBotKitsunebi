@@ -1,4 +1,3 @@
-// TODO Look up for namespace in typescript
 import { CardHandler } from './CommandHandler/card-handler';
 import { Message } from "discord.js";
 import { injectable } from "inversify";
