@@ -31,6 +31,9 @@ export class Planning extends ModifiableMessage {
         // Sunday
         const sundayRole: Role = new Role("Dimanche", "🇩");
         this.roles.push(sundayRole);
+        // Unavailable
+        const unavailableRole : Role = new Role("Pas dispo", "❌");
+        this.roles.push(unavailableRole);
     }
 
     public async constructMessageEmbed(): Promise<MessageEmbed> {
