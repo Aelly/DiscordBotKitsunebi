@@ -39,4 +39,8 @@ export default class StringUtils {
 
         return arg;
     }
+
+    public static SanitizeIphoneInput(input : string) : string{
+        return input.replace('’', "'");
+    }
 }

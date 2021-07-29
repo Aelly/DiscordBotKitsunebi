@@ -4,6 +4,7 @@ import { inject, injectable } from "inversify";
 import GraphqlBehavior from "../../graphqlBehavior";
 import { FFXIVCharacterData } from "../Interfaces/ffxiv-log-api-character-data";
 import FFXIVLogApiRest from "./ffxiv-log-api-rest";
+import StringUtils from "../../../../Utils/stringUtils";
 
 @injectable()
 export default class FFXIVLogsAPIGraphql extends GraphqlBehavior {
@@ -41,13 +42,13 @@ export default class FFXIVLogsAPIGraphql extends GraphqlBehavior {
         return await this.request(characterQuery);
     }
 
-    async getLogs(characterName: string): Promise<FFXIVCharacterData.RootObject> {
+    public async getLogs(characterName: string): Promise<FFXIVCharacterData.RootObject> {
         let res: any = {};
         try {
             const { access_token } = await this.ffxigLogsApiRest.getAccessToken();
             if (access_token == null) return null;
             this.setBearer(access_token);
-            res = await this._getLogs(characterName);
+            res = await this._getLogs(StringUtils.SanitizeIphoneInput(characterName));
         } catch (err) {
             console.log(err);
             return null;
