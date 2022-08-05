@@ -75,7 +75,7 @@ If you end up using the bot and want to contribute to the project feel free to o
 
 - [ ] Add Unit testing
 - [ ] Allow customization without needed to change the class code
-- [ ] Add a link to the FF XIV Lodestone / FF Logs API
+- [x] Add a link to the FF XIV Lodestone / FF Logs API
 
 ## Licence
 
